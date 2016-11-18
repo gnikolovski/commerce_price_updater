@@ -1,0 +1,9 @@
+commerce_price_updater.price_updater_form:
+  title: 'Price updater'
+  route_name: commerce_price_updater.price_updater_form
+  parent: commerce.admin_commerce
+
+commerce_price_updater.price_updater_config_form:
+  title: 'Price updater'
+  route_name: commerce_price_updater.price_updater_config_form
+  parent: commerce.configuration
