@@ -22,12 +22,18 @@ class PriceUpdaterForm extends FormBase {
    */
   protected $configFactory;
 
+  /**
+   * {@inheritdoc}
+   */
   public function __construct(
     ConfigFactory $config_factory
   ) {
     $this->configFactory = $config_factory;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory')
@@ -51,7 +57,7 @@ class PriceUpdaterForm extends FormBase {
     $config = $this->configFactory->get('commerce_price_updater.settings');
 
     $form['csv_file'] = array(
-      '#title' => t('CSV file'),
+      '#title' => $this->t('CSV file'),
       '#type' => 'managed_file',
       '#upload_location' => 'public://commerce-price-updater/',
       '#upload_validators' => array(
