@@ -1,3 +1,0 @@
-Commerce Price Updater module 8.x-1.x, 2016-19-11
-----------------------------------------
-- Initial release
