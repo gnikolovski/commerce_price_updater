@@ -1,0 +1,21 @@
+{
+  "name": "drupal/commerce_price_updater",
+  "description": "Price updater for Drupal Commerce 2.x.",
+  "type": "drupal-module",
+  "homepage": "http://drupal.org/project/commerce_price_updater",
+  "authors": [
+    {
+      "name": "Goran Nikolovski",
+      "email": "nikolovski84@gmail.com",
+      "homepage": "http://gorannikolovski.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/commerce_price_updater",
+    "email": "nikolovski84@gmail.com"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {}
+}
