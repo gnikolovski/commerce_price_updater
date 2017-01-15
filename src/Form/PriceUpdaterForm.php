@@ -4,7 +4,8 @@ namespace Drupal\commerce_price_updater\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use \Drupal\file\Entity\File;
+use Drupal\file\Entity\File;
+use Drupal\commerce_price_updater\PriceUpdater;
 
 /**
  * Class PriceUpdaterForm.
@@ -12,7 +13,6 @@ use \Drupal\file\Entity\File;
  * @package Drupal\commerce_price_updater\PriceUpdaterForm
  */
 class PriceUpdaterForm extends FormBase {
-
 
   /**
    * {@inheritdoc}
@@ -69,9 +69,9 @@ class PriceUpdaterForm extends FormBase {
     );
 
     $form['actions']['submit'] = array(
-     '#type' => 'submit',
-     '#value' => $this->t('Update prices'),
-     '#button_type' => 'primary',
+      '#type' => 'submit',
+      '#value' => $this->t('Update prices'),
+      '#button_type' => 'primary',
     );
 
     return $form;
@@ -99,12 +99,15 @@ class PriceUpdaterForm extends FormBase {
       case 0:
         $separator = ',';
         break;
+
       case 1:
         $separator = ';';
         break;
+
       case 2:
         $separator = "\t";
         break;
+
       case 3:
         $separator = $form_state->getValue('custom_separator');
         break;
@@ -139,10 +142,13 @@ class PriceUpdaterForm extends FormBase {
       if (!$line) {
         continue;
       }
-  		$sku = isset($line[0]) ? trim($line[0]) : NULL;
+  	  $sku = isset($line[0]) ? trim($line[0]) : NULL;
       $price = isset($line[1]) ? trim($line[1]) : NULL;
       if ($sku && $price && is_numeric($price)) {
-        $batch['operations'][] = array('\Drupal\commerce_price_updater\PriceUpdater::update', array($sku, $price));
+        $batch['operations'][] = array(
+          'PriceUpdater::update',
+          array($sku, $price)
+        );
         $counter++;
       }
     }
