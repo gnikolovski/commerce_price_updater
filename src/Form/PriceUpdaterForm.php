@@ -45,10 +45,10 @@ class PriceUpdaterForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Separator'),
       '#options' => array(
-        '0' => t('Comma'),
-        '1' => t('Semicolon'),
-        '2' => t('TAB'),
-        '3' => t('Custom'),
+        '0' => $this->t('Comma'),
+        '1' => $this->t('Semicolon'),
+        '2' => $this->t('TAB'),
+        '3' => $this->t('Custom'),
       ),
       '#description' => $this->t('Choose or set <a href="/admin/commerce/price-updater/config">default separator</a> used in CSV files.'),
       '#default_value' => $config->get('default_separator'),
@@ -58,7 +58,7 @@ class PriceUpdaterForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Custom separator'),
       '#size' => 10,
-      '#description' => t('Enter your custom CSV column separator.'),
+      '#description' => $this->t('Enter your custom CSV column separator.'),
       '#default_value' => $config->get('custom_separator'),
       '#states' => array(
         'visible' => array(
@@ -141,7 +141,7 @@ class PriceUpdaterForm extends FormBase {
       if (!$line) {
         continue;
       }
-  	  $sku = isset($line[0]) ? trim($line[0]) : NULL;
+      $sku = isset($line[0]) ? trim($line[0]) : NULL;
       $price = isset($line[1]) ? trim($line[1]) : NULL;
       if ($sku && $price && is_numeric($price)) {
         $batch['operations'][] = array(
