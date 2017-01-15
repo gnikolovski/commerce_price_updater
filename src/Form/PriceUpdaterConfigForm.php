@@ -45,7 +45,7 @@ class PriceUpdaterConfigForm extends ConfigFormBase {
         '2' => $this->t('TAB'),
         '3' => $this->t('Custom'),
       ),
-      '#description' => t('Choose the default separator you will use in your CSV files.'),
+      '#description' => $this->t('Choose the default separator you will use in your CSV files.'),
       '#default_value' => !empty($config->get('default_separator')) ? $config->get('default_separator') : 0,
     );
 
@@ -53,7 +53,7 @@ class PriceUpdaterConfigForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Custom separator'),
       '#size' => 10,
-      '#description' => t('Enter your custom CSV column separator.'),
+      '#description' => $this->t('Enter your custom CSV column separator.'),
       '#default_value' => $config->get('custom_separator'),
       '#states' => array(
         'visible' => array(
