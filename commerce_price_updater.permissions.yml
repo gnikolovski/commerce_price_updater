@@ -1,2 +1,6 @@
 administer commerce price updater:
   title: 'Administer Commerce Price Updater module'
+  'restrict access': TRUE
+
+access commerce price updater:
+  title: 'Access Commerce Price Updater module'
