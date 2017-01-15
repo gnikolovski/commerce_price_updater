@@ -5,7 +5,6 @@ namespace Drupal\commerce_price_updater\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
-use Drupal\commerce_price_updater\PriceUpdater;
 
 /**
  * Class PriceUpdaterForm.
@@ -146,8 +145,8 @@ class PriceUpdaterForm extends FormBase {
       $price = isset($line[1]) ? trim($line[1]) : NULL;
       if ($sku && $price && is_numeric($price)) {
         $batch['operations'][] = array(
-          'PriceUpdater::update',
-          array($sku, $price)
+          'Drupal\commerce_price_updater\PriceUpdater::update',
+          array($sku, $price),
         );
         $counter++;
       }
