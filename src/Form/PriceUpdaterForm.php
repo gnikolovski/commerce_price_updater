@@ -5,6 +5,8 @@ namespace Drupal\commerce_price_updater\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactory;
 
 /**
  * Class PriceUpdaterForm.
@@ -14,10 +16,29 @@ use Drupal\file\Entity\File;
 class PriceUpdaterForm extends FormBase {
 
   /**
+   * Drupal\Core\Config\ConfigFactory definition.
+   *
+   * @var \Drupal\Core\Config\ConfigFactory
+   */
+  protected $configFactory;
+
+  public function __construct(
+    ConfigFactory $config_factory
+  ) {
+    $this->configFactory = $config_factory;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory')
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'price_updater';
+    return 'price_updater_form';
   }
 
   /**
@@ -27,10 +48,10 @@ class PriceUpdaterForm extends FormBase {
     $path = 'public://commerce-price-updater/';
     file_prepare_directory($path, FILE_CREATE_DIRECTORY);
 
-    $config = \Drupal::config('commerce_price_updater.settings');
+    $config = $this->configFactory->get('commerce_price_updater.settings');
 
     $form['csv_file'] = array(
-      '#title' => $this->t('CSV file'),
+      '#title' => t('CSV file'),
       '#type' => 'managed_file',
       '#upload_location' => 'public://commerce-price-updater/',
       '#upload_validators' => array(
@@ -92,7 +113,7 @@ class PriceUpdaterForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = \Drupal::config('commerce_price_updater.settings');
+    $config = $this->configFactory->get('commerce_price_updater.settings');
     $selected_separator = $form_state->getValue('separator');
     switch ($selected_separator) {
       case 0:
