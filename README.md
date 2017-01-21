@@ -36,7 +36,7 @@ Drupal Commerce 2.x.
 ##CONFIGURATION
 
 You can choose the default separator in the module configuration:
-(admin/commerce/price-updater/config)
+(admin/commerce/config/price-updater)
 
 ###AUTHOR
 
