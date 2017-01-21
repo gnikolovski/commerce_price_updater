@@ -68,49 +68,49 @@ class PriceUpdaterForm extends FormBase {
 
     $config = $this->configFactory->get('commerce_price_updater.settings');
 
-    $form['csv_file'] = array(
+    $form['csv_file'] = [
       '#title' => $this->t('CSV file'),
       '#type' => 'managed_file',
       '#upload_location' => 'public://commerce-price-updater/',
-      '#upload_validators' => array(
-        'file_validate_extensions' => array('csv'),
-        'file_validate_size' => array(10485760),
-      ),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['csv'],
+        'file_validate_size' => [10485760],
+      ],
       '#required' => TRUE,
       '#description' => $this->t('CSV format: SKU, PRICE. Replace comma with your separator.'),
-    );
+    ];
 
-    $form['separator'] = array(
+    $form['separator'] = [
       '#type' => 'select',
       '#title' => $this->t('Separator'),
-      '#options' => array(
+      '#options' => [
         '0' => $this->t('Comma'),
         '1' => $this->t('Semicolon'),
         '2' => $this->t('TAB'),
         '3' => $this->t('Custom'),
-      ),
+      ],
       '#description' => $this->t('Choose or set <a href="/admin/commerce/config/price-updater">default separator</a> used in CSV files.'),
       '#default_value' => $config->get('default_separator'),
-    );
+    ];
 
-    $form['custom_separator'] = array(
+    $form['custom_separator'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Custom separator'),
       '#size' => 10,
       '#description' => $this->t('Enter your custom CSV column separator.'),
       '#default_value' => $config->get('custom_separator'),
-      '#states' => array(
-        'visible' => array(
-          ':input[name="separator"]' => array('value' => '3'),
-        ),
-      ),
-    );
+      '#states' => [
+        'visible' => [
+          ':input[name="separator"]' => ['value' => '3'],
+        ],
+      ],
+    ];
 
-    $form['actions']['submit'] = array(
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Update prices'),
       '#button_type' => 'primary',
-    );
+    ];
 
     return $form;
   }
@@ -170,10 +170,10 @@ class PriceUpdaterForm extends FormBase {
     }
 
     $handle = fopen($file_path, 'r');
-    $batch = array(
-      'operations' => array(),
+    $batch = [
+      'operations' => [],
       'title' => $this->t('Updating product variation prices...'),
-    );
+    ];
 
     $counter = 0;
     while ($line = fgetcsv($handle, 4096, $separator)) {
@@ -203,7 +203,7 @@ class PriceUpdaterForm extends FormBase {
    */
   public function updateProductPrice($sku, $price) {
     $storage = $this->entityTypeManager->getStorage('commerce_product_variation');
-    $product_variations = $storage->loadByProperties(array('sku' => $sku));
+    $product_variations = $storage->loadByProperties(['sku' => $sku]);
     if (!$product_variations) {
       return FALSE;
     }

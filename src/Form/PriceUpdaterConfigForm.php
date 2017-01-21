@@ -26,7 +26,7 @@ class PriceUpdaterConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return array('commerce_price_updater.settings');
+    return ['commerce_price_updater.settings'];
   }
 
   /**
@@ -35,39 +35,39 @@ class PriceUpdaterConfigForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('commerce_price_updater.settings');
 
-    $form['default_separator'] = array(
+    $form['default_separator'] = [
       '#type' => 'select',
       '#title' => $this->t('Default CSV separator'),
       '#required' => TRUE,
-      '#options' => array(
+      '#options' => [
         '0' => $this->t('Comma'),
         '1' => $this->t('Semicolon'),
         '2' => $this->t('TAB'),
         '3' => $this->t('Custom'),
-      ),
+      ],
       '#description' => $this->t('Choose the default separator you will use in your CSV files.'),
       '#default_value' => !empty($config->get('default_separator')) ? $config->get('default_separator') : 0,
-    );
+    ];
 
-    $form['custom_separator'] = array(
+    $form['custom_separator'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Custom separator'),
       '#size' => 10,
       '#description' => $this->t('Enter your custom CSV column separator.'),
       '#default_value' => $config->get('custom_separator'),
-      '#states' => array(
-        'visible' => array(
-          ':input[name="default_separator"]' => array('value' => '3'),
-        ),
-      ),
-    );
+      '#states' => [
+        'visible' => [
+          ':input[name="default_separator"]' => ['value' => '3'],
+        ],
+      ],
+    ];
 
-    $form['file_status'] = array(
+    $form['file_status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Make CSV files permanent'),
       '#description' => $this->t('Check this option to set status of uploaded CSV files to permanent.'),
       '#default_value' => $config->get('file_status'),
-    );
+    ];
 
     return parent::buildForm($form, $form_state);
   }
