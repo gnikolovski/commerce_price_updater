@@ -13,7 +13,7 @@
 Most customers of company I work for use some sort of product management
 software for keeping track of their product inventory. All these applications
 have option to export product prices to a CSV file, so it is very important to
-offer our customers option to easily update prices on their website, without
+offer our customers an option to easily update prices on their website, without
 creating complicated and often expensive API integrations. That is the main
 reason behind creating this Drupal 8 module.
 
@@ -21,7 +21,15 @@ To use this module you must have Drupal Commerce 2.x installed. We use this
 module internally, and it is still in a development phase, just like Drupal
 Commerce 2.x, so if you find bugs or if you want to suggest a feature please
 open an issue. For now you can import prices only from CSV files, but I plan to
-add XML and JSON support. In the 'examples' folder you can find sample CSV file.
+add XML and JSON support.
+
+After you install the module go to 'admin/commerce/price-updater' where you can
+upload CSV file and update your product prices. CSV file should have only two
+columns: SKU and PRICE, separated by separator of your choosing. Price must be a
+number, and if your price has decimal places use period to format it
+(e.g: 999.99). Uploaded CSV files are stored in a separate folder, and you can
+choose if you wish to save these files permanently or temporarily. In the
+'examples' folder you can find a sample CSV file.
 
 ##REQUIREMENTS
 
