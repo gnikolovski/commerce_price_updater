@@ -21,7 +21,7 @@ To use this module you must have Drupal Commerce 2.x installed. We use this
 module internally, and it is still in a development phase, just like Drupal
 Commerce 2.x, so if you find bugs or if you want to suggest a feature please
 open an issue. For now you can import prices only from CSV files, but I plan to
-add XML and JSON support.
+add XML and JSON support. In the 'examples' folder you can find sample CSV file.
 
 ##REQUIREMENTS
 
