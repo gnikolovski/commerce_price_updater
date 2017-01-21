@@ -7,6 +7,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\commerce_price\Price;
 
 /**
  * Class PriceUpdaterForm.
@@ -23,12 +25,21 @@ class PriceUpdaterForm extends FormBase {
   protected $configFactory;
 
   /**
+   * Drupal\Core\Entity\EntityTypeManager definition.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   */
+  protected $entityTypeManager;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(
-    ConfigFactory $config_factory
+    ConfigFactory $config_factory,
+    EntityTypeManager $entity_type_manager
   ) {
     $this->configFactory = $config_factory;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -36,7 +47,8 @@ class PriceUpdaterForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -77,7 +89,7 @@ class PriceUpdaterForm extends FormBase {
         '2' => $this->t('TAB'),
         '3' => $this->t('Custom'),
       ),
-      '#description' => $this->t('Choose or set <a href="/admin/commerce/price-updater/config">default separator</a> used in CSV files.'),
+      '#description' => $this->t('Choose or set <a href="/admin/commerce/config/price-updater">default separator</a> used in CSV files.'),
       '#default_value' => $config->get('default_separator'),
     );
 
@@ -171,10 +183,7 @@ class PriceUpdaterForm extends FormBase {
       $sku = isset($line[0]) ? trim($line[0]) : NULL;
       $price = isset($line[1]) ? trim($line[1]) : NULL;
       if ($sku && $price && is_numeric($price)) {
-        $batch['operations'][] = array(
-          'Drupal\commerce_price_updater\PriceUpdater::update',
-          array($sku, $price),
-        );
+        $batch['operations'][] = [[$this, 'updateProductPrice'], [$sku, $price]];
         $counter++;
       }
     }
@@ -186,6 +195,30 @@ class PriceUpdaterForm extends FormBase {
     }
     else {
       drupal_set_message($this->t('Nothing to import. Please check your CSV file and separator.'), 'warning');
+    }
+  }
+
+  /**
+   * Update product price.
+   */
+  public function updateProductPrice($sku, $price) {
+    $storage = $this->entityTypeManager->getStorage('commerce_product_variation');
+    $product_variations = $storage->loadByProperties(array('sku' => $sku));
+    if (!$product_variations) {
+      return FALSE;
+    }
+
+    foreach ($product_variations as $product_variation) {
+      try {
+        $price_obj = $product_variation->getPrice();
+        $price_currency = $price_obj->getCurrencyCode();
+        $new_price = new Price($price, $price_currency);
+        $product_variation->set('price', $new_price);
+        $product_variation->save();
+      }
+      catch (Exception $e) {
+        drupal_set_message($e->getMessage(), 'error');
+      }
     }
   }
 
