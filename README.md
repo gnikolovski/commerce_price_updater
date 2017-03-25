@@ -25,11 +25,11 @@ add XML and JSON support.
 
 After you install the module go to 'admin/commerce/price-updater' where you can
 upload CSV file and update your product prices. CSV file should have only two
-columns: SKU and PRICE, separated by separator of your choosing. Price must be a
-number, and if your price has decimal places use period to format it
+columns: SKU and PRICE, separated by a separator of your choosing. Price must be 
+a number, and if your price has decimal places use period to format it
 (e.g: 999.99). Uploaded CSV files are stored in a separate folder, and you can
 choose if you wish to save these files permanently or temporarily. In the
-'examples' folder you can find a sample CSV file.
+module's examples folder you can find a sample CSV file.
 
 ## REQUIREMENTS
 
