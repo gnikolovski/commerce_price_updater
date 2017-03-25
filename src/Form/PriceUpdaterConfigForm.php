@@ -11,7 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
  */
 
 /**
- * Defines a form that configures commerce‚price updater settings.
+ * Defines a form that configures commerce price updater.
  */
 class PriceUpdaterConfigForm extends ConfigFormBase {
 

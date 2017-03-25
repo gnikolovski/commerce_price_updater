@@ -152,6 +152,11 @@ class PriceUpdaterForm extends FormBase {
     }
 
     $csv_file = $form_state->getValue('csv_file');
+    if (!isset($csv_file[0])) {
+      drupal_set_message($this->t('CSV file not found.'), 'error');
+      return FALSE;
+    }
+
     $file = File::load($csv_file[0]);
     if (!$file) {
       drupal_set_message($this->t('CSV file not found.'), 'error');

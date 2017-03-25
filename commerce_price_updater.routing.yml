@@ -9,7 +9,7 @@ commerce_price_updater.price_updater_form:
 commerce_price_updater.price_updater_config_form:
   path: '/admin/commerce/config/price-updater'
   defaults:
-    _title: 'Commerce Price Updater settings'
+    _title: 'Commerce Price Updater'
     _form: '\Drupal\commerce_price_updater\Form\PriceUpdaterConfigForm'
   requirements:
     _permission: 'administer commerce price updater'
