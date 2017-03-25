@@ -49,7 +49,7 @@ You can choose the default separator in the module configuration:
 ### AUTHOR
 
 Goran Nikolovski  
-Website: http://www.gorannikolovski.com  
+Website: http://gorannikolovski.com  
 Drupal: https://www.drupal.org/user/3451979  
 Email: nikolovski84@gmail.com  
 
