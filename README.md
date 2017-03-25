@@ -1,6 +1,6 @@
-#Commerce Price Updater
+# Commerce Price Updater
 
-##CONTENTS OF THIS FILE
+## CONTENTS OF THIS FILE
 
   * Introduction
   * Requirements
@@ -8,7 +8,7 @@
   * Configuration
   * Author
 
-##INTRODUCTION
+## INTRODUCTION
 
 Most customers of company I work for use some sort of product management
 software for keeping track of their product inventory. All these applications
@@ -19,7 +19,7 @@ reason behind creating this Drupal 8 module.
 
 To use this module you must have Drupal Commerce 2.x installed. We use this
 module internally, and it is still in a development phase, just like Drupal
-Commerce 2.x, so if you find bugs or if you want to suggest a feature please
+Commerce 2.x, so if you find any bugs or if you want to suggest a feature please
 open an issue. For now you can import prices only from CSV files, but I plan to
 add XML and JSON support.
 
@@ -31,29 +31,29 @@ number, and if your price has decimal places use period to format it
 choose if you wish to save these files permanently or temporarily. In the
 'examples' folder you can find a sample CSV file.
 
-##REQUIREMENTS
+## REQUIREMENTS
 
 Drupal Commerce 2.x.
 
-##INSTALLATION
+## INSTALLATION
 
 1. Make sure that you installed and enabled Drupal Commerce 2.x
 2. Install module as usual via Drupal UI, Drush or Composer
 3. Go to "Extend" and enable the Commerce Price Updater module.
 
-##CONFIGURATION
+## CONFIGURATION
 
 You can choose the default separator in the module configuration:
-(admin/commerce/config/price-updater)
+'admin/commerce/config/price-updater'
 
-###AUTHOR
+### AUTHOR
 
 Goran Nikolovski  
-Website: (http://www.gorannikolovski.com)  
-Drupal: (https://www.drupal.org/user/3451979)  
+Website: http://www.gorannikolovski.com  
+Drupal: https://www.drupal.org/user/3451979  
 Email: nikolovski84@gmail.com  
 
 Company: Studio Present, Subotica, Serbia  
-Website: (http://www.studiopresent.com)  
-Drupal: (https://www.drupal.org/studio-present)  
-Email: info@studiopresent.com
+Website: http://www.studiopresent.com  
+Drupal: https://www.drupal.org/studio-present  
+Email: info@studiopresent.com  
