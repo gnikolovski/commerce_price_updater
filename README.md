@@ -20,10 +20,9 @@ reason behind creating this Drupal 8 module.
 To use this module you must have Drupal Commerce 2.x installed. We use this
 module internally, and it is still in a development phase, just like Drupal
 Commerce 2.x, so if you find any bugs or if you want to suggest a feature please
-open an issue. For now you can import prices only from CSV files, but I plan to
-add XML and JSON support.
+open an issue.
 
-After you install the module go to 'admin/commerce/price-updater' where you can
+After you install the module go to '/admin/commerce/price-updater' where you can
 upload CSV file and update your product prices. CSV file should have only two
 columns: SKU and PRICE, separated by a separator of your choosing. Price must be 
 a number, and if your price has decimal places use period to format it
@@ -44,7 +43,7 @@ Drupal Commerce 2.x.
 ## CONFIGURATION
 
 You can choose the default separator in the module configuration:
-'admin/commerce/config/price-updater'
+'/admin/commerce/config/price-updater'
 
 ### AUTHOR
 
