@@ -6,11 +6,6 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * @file
- * Contains \Drupal\commerce_price_updater\Form\PriceUpdaterConfigForm.
- */
-
-/**
  * Defines a form that configures commerce price updater.
  */
 class PriceUpdaterConfigForm extends ConfigFormBase {

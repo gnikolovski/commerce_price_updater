@@ -3,5 +3,6 @@ type: module
 description: 'Price updater for Drupal Commerce 2.x'
 core: 8.x
 package: Commerce
+configure: commerce_price_updater.price_updater_config_form
 dependencies:
   - commerce
