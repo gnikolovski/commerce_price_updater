@@ -49,7 +49,7 @@ You can choose the default separator in the module configuration:
 
 Goran Nikolovski  
 Website: http://gorannikolovski.com  
-Drupal: https://www.drupal.org/user/3451979  
+Drupal: https://www.drupal.org/u/gnikolovski  
 Email: nikolovski84@gmail.com  
 
 Company: Studio Present, Subotica, Serbia  
