@@ -1,0 +1,15 @@
+commerce_price_updater.settings:
+  type: config_object
+  label: 'Commerce Price Updater'
+  mapping:
+    default_separator:
+      type: sequence
+      sequence:
+        type: integer
+      label: 'Default CSV separator'
+    custom_separator:
+      type: string
+      label: 'Custom separator'
+    file_status:
+      type: boolean
+      label: 'Make CSV files permanent'
