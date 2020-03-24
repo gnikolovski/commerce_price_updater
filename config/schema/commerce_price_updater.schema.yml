@@ -3,9 +3,7 @@ commerce_price_updater.settings:
   label: 'Commerce Price Updater'
   mapping:
     default_separator:
-      type: sequence
-      sequence:
-        type: integer
+      type: string
       label: 'Default CSV separator'
     custom_separator:
       type: string
