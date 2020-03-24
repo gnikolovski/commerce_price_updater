@@ -1,58 +1,52 @@
-# Commerce Price Updater
+CONTENTS OF THIS FILE
+---------------------
 
-## CONTENTS OF THIS FILE
+ * Introduction
+ * Requirements
+ * Installation
+ * Configuration
+ * Maintainers
 
-  * Introduction
-  * Requirements
-  * Installation
-  * Configuration
-  * Author
 
-## INTRODUCTION
+INTRODUCTION
+------------
 
-Most customers of company I work for use some sort of product management
-software for keeping track of their product inventory. All these applications
-have option to export product prices to a CSV file, so it is very important to
-offer our customers an option to easily update prices on their website, without
-creating complicated and often expensive API integrations. That is the main
-reason behind creating this Drupal 8 module.
+The Commerce Price Updater module allows the user to update product prices by
+uploading a CSV file with the prices.
 
-To use this module you must have Drupal Commerce 2.x installed. We use this
-module internally, and it is still in a development phase, just like Drupal
-Commerce 2.x, so if you find any bugs or if you want to suggest a feature please
-open an issue.
+ * For a full description of the module, visit the project page:
+   https://www.drupal.org/project/commerce_price_updater
 
-After you install the module go to '/admin/commerce/price-updater' where you can
-upload CSV file and update your product prices. CSV file should have only two
-columns: SKU and PRICE, separated by a separator of your choosing. Price must be 
-a number, and if your price has decimal places use period to format it
-(e.g: 999.99). Uploaded CSV files are stored in a separate folder, and you can
-choose if you wish to save these files permanently or temporarily. In the
-module's examples folder you can find a sample CSV file.
+ * To submit bug reports and feature suggestions, or to track changes:
+   https://www.drupal.org/project/issues/commerce_price_updater
 
-## REQUIREMENTS
 
-Drupal Commerce 2.x.
+REQUIREMENTS
+------------
 
-## INSTALLATION
+This module requires Drupal Commerce 2.x module to be installed.
 
-1. Make sure that you installed and enabled Drupal Commerce 2.x
-2. Install module as usual via Drupal UI, Drush or Composer
-3. Go to "Extend" and enable the Commerce Price Updater module.
 
-## CONFIGURATION
+INSTALLATION
+------------
 
-You can choose the default separator in the module configuration:
+ * Install the Commerce Price Updater module as you would normally install a
+   contributed Drupal module. Visit https://www.drupal.org/node/1897420 for
+   further information.
+
+
+CONFIGURATION
+-------------
+
+You can choose the default separator in the module configuration here:
 '/admin/commerce/config/price-updater'
 
-### AUTHOR
 
-Goran Nikolovski  
-Website: http://gorannikolovski.com  
-Drupal: https://www.drupal.org/u/gnikolovski  
-Email: nikolovski84@gmail.com  
+MAINTAINERS
+-----------
 
-Company: Studio Present, Subotica, Serbia  
-Website: http://www.studiopresent.com  
-Drupal: https://www.drupal.org/studio-present  
-Email: info@studiopresent.com  
+Current maintainers:
+ * Goran Nikolovski (gnikolovski) - https://www.drupal.org/u/gnikolovski
+
+This project has been sponsored by:
+ * Studio Present - https://www.drupal.org/studio-present
