@@ -1,7 +1,8 @@
-name: Commerce Price Updater
+name: 'Commerce Price Updater'
 type: module
 description: 'Price updater for Drupal Commerce 2.x'
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: Commerce (contrib)
 configure: commerce_price_updater.price_updater_config_form
 dependencies:
