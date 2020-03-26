@@ -2,13 +2,15 @@
 
 namespace Drupal\commerce_price_updater\Form;
 
-use Drupal\Core\Form\FormBase;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\file\Entity\File;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\commerce_price\Price;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\commerce_price\Price;
+use Drupal\Core\File\FileSystem;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\Messenger;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class PriceUpdaterForm.
@@ -32,14 +34,32 @@ class PriceUpdaterForm extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * The messenger.
+   *
+   * @var \Drupal\Core\Messenger\Messenger
+   */
+  protected $messenger;
+
+  /**
+   * The file service.
+   *
+   * @var \Drupal\Core\File\FileSystem
+   */
+  protected $fileSystem;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(
     ConfigFactory $config_factory,
-    EntityTypeManager $entity_type_manager
+    EntityTypeManager $entity_type_manager,
+    Messenger $messenger,
+    FileSystem $file_system
   ) {
     $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
+    $this->messenger = $messenger;
+    $this->fileSystem = $file_system;
   }
 
   /**
@@ -48,7 +68,9 @@ class PriceUpdaterForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('messenger'),
+      $container->get('file_system')
     );
   }
 
@@ -64,7 +86,7 @@ class PriceUpdaterForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $path = 'public://commerce-price-updater/';
-    file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+    $this->fileSystem->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
 
     $config = $this->configFactory->get('commerce_price_updater.settings');
 
@@ -153,13 +175,13 @@ class PriceUpdaterForm extends FormBase {
 
     $csv_file = $form_state->getValue('csv_file');
     if (!isset($csv_file[0])) {
-      drupal_set_message($this->t('CSV file not found.'), 'error');
+      $this->messenger->addError($this->t('CSV file not found.'));
       return FALSE;
     }
 
-    $file = File::load($csv_file[0]);
+    $file = $this->entityTypeManager->getStorage('file')->load($csv_file[0]);
     if (!$file) {
-      drupal_set_message($this->t('CSV file not found.'), 'error');
+      $this->messenger->addError($this->t('CSV file not found.'));
       return FALSE;
     }
 
@@ -170,7 +192,7 @@ class PriceUpdaterForm extends FormBase {
     $file->save();
     $file_path = $file->getFileUri();
     if (!file_exists($file_path)) {
-      drupal_set_message($this->t('CSV file not found.'), 'error');
+      $this->messenger->addError($this->t('CSV file not found.'));
       return FALSE;
     }
 
@@ -196,10 +218,10 @@ class PriceUpdaterForm extends FormBase {
 
     if ($counter > 0) {
       batch_set($batch);
-      drupal_set_message($this->t('Product prices successfully updated.'));
+      $this->messenger->addMessage($this->t('Product prices successfully updated.'));
     }
     else {
-      drupal_set_message($this->t('Nothing to import. Please check your CSV file and separator.'), 'warning');
+      $this->messenger->addWarning($this->t('Nothing to import. Please check your CSV file and separator.'));
     }
   }
 
@@ -222,7 +244,7 @@ class PriceUpdaterForm extends FormBase {
         $product_variation->save();
       }
       catch (Exception $e) {
-        drupal_set_message($e->getMessage(), 'error');
+        $this->messenger->addError($e->getMessage());
       }
     }
   }
