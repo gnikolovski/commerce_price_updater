@@ -160,16 +160,16 @@ class PriceUpdaterForm extends FormBase {
         $separator = ',';
         break;
 
-      case 1:
-        $separator = ';';
-        break;
-
       case 2:
         $separator = "\t";
         break;
 
       case 3:
         $separator = $form_state->getValue('custom_separator');
+        break;
+
+      default:
+        $separator = ';';
         break;
     }
 
@@ -243,7 +243,7 @@ class PriceUpdaterForm extends FormBase {
         $product_variation->set('price', $new_price);
         $product_variation->save();
       }
-      catch (Exception $e) {
+      catch (\Exception $e) {
         $this->messenger->addError($e->getMessage());
       }
     }
