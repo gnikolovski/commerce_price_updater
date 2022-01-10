@@ -99,7 +99,7 @@ class PriceUpdaterForm extends FormBase {
         'file_validate_size' => [10485760],
       ],
       '#required' => TRUE,
-      '#description' => $this->t('CSV format: SKU, PRICE. Replace comma with your separator.'),
+      '#description' => $this->t('CSV format: SKU, PRICE, LIST PRICE. Replace comma with your separator. LIST PRICE is optional column.'),
     ];
 
     $form['separator'] = [
@@ -209,8 +209,13 @@ class PriceUpdaterForm extends FormBase {
       }
       $sku = isset($line[0]) ? trim($line[0]) : NULL;
       $price = isset($line[1]) ? trim($line[1]) : NULL;
-      if ($sku && $price && is_numeric($price)) {
-        $batch['operations'][] = [[$this, 'updateProductPrice'], [$sku, $price]];
+      $list_price = isset($line[2]) ? trim($line[2]) : NULL;
+      if (
+        $sku &&
+        $price &&
+        is_numeric($price)
+      ) {
+        $batch['operations'][] = [[$this, 'updateProductPrice'], [$sku, $price, $list_price]];
         $counter++;
       }
     }
@@ -228,7 +233,7 @@ class PriceUpdaterForm extends FormBase {
   /**
    * Update product price.
    */
-  public function updateProductPrice($sku, $price) {
+  public function updateProductPrice($sku, $price, $list_price) {
     $storage = $this->entityTypeManager->getStorage('commerce_product_variation');
     $product_variations = $storage->loadByProperties(['sku' => $sku]);
     if (!$product_variations) {
@@ -240,7 +245,12 @@ class PriceUpdaterForm extends FormBase {
         $price_obj = $product_variation->getPrice();
         $price_currency = $price_obj->getCurrencyCode();
         $new_price = new Price($price, $price_currency);
+        $new_list_price = NULL;
+        if (is_numeric($list_price)) {
+          $new_list_price = new Price($list_price, $price_currency);
+        }
         $product_variation->set('price', $new_price);
+        $product_variation->set('list_price', $new_list_price);
         $product_variation->save();
       }
       catch (\Exception $e) {
