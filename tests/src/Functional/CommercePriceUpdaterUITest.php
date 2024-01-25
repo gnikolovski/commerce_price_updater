@@ -19,7 +19,7 @@ class CommercePriceUpdaterUITest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'commerce_price_updater',
   ];
 
@@ -31,7 +31,7 @@ class CommercePriceUpdaterUITest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->drupalLogin($this->drupalCreateUser(['administer commerce price updater']));
